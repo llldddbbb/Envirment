@@ -22,7 +22,7 @@
 			$.post("${pageContext.request.contextPath}/account/login.do",{username:username,password:password},function(result){
 				var result=eval("("+result+")");
 				if(result.success){
-					window.location.href="${pageContext.request.contextPath}/city/list.do?cityID="+result.cityID;
+					window.location.href="${pageContext.request.contextPath}/city/list.do?view=map&cityID="+result.cityID;
 				}else{
 					alert("用户名或密码错误!");
 					return;
