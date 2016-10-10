@@ -1,0 +1,6 @@
+/applicationContext.xml
+/com/
+/environment.properties
+/log4j.properties
+/mybatis-config.xml
+/spring-mvc.xml

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 对应dao接口 -->
+<mapper namespace="com.dao.CityDao">
+    <resultMap id="CityResult" type="City">
+        <result property="cityID" column="cityID"/>
+        <result property="deviceName" column="deviceName"/>
+        <result property="cityName" column="cityName"/>
+        <result property="lat" column="lat"/>
+        <result property="lng" column="lng"/>
+        <result property="AQI_lat" column="AQI_lat"/>
+        <result property="AQI_lng" column="AQI_lng"/>
+        <result property="distance" column="distance"/>
+    </resultMap>
+    
+	<select id="findCityList" resultMap="CityResult" parameterType="Map">
+	    select * from city 
+	    <where>
+	        <if test="cityID!=null">
+	            and cityID=#{cityID}
+	        </if>
+	        <if test="placesearch!=null and placesearch!=''">
+	            and cityName like #{placesearch}
+	        </if>
+	    </where>
+	</select>
+</mapper> 
