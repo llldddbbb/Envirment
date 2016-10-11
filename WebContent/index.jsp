@@ -192,7 +192,17 @@ if(session.getAttribute("currentAccount")==null){
 								<span> / </span>
 								<span>CO2 :</span>
 								<span id="co2">${device.CO2 }</span>
-								<p class="airlevel level-1">${device.PM25<20.00000?'优':device.PM25<25.00000?'中':'差' }</p>
+								<c:choose>
+									<c:when test="${device.PM25<20.00000 }">
+										<p class="airlevel level-1">优</p>
+									</c:when>
+									<c:when test="${device.PM25>25.00000 }">
+										<p class="airlevel level-3">差</p>
+									</c:when>
+									<c:otherwise>
+										<p class="airlevel level-2">中</p>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 							</div>
 						</a>

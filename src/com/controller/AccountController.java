@@ -107,7 +107,7 @@ public class AccountController {
 			return "redirect:/login/"+goLogin;
 		}
 		session.setAttribute("currentAccount", resultAccount);
-		return "redirect:/city/list.do?cityID="+resultAccount.getPlace();
+		return "redirect:/city/list.do?view=map&cityID="+resultAccount.getPlace();
 	}
 	
 	
