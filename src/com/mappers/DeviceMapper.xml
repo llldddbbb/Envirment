@@ -6,46 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.dao.DeviceDao">
     <resultMap id="DeviceResult" type="Device">
         <result property="TimeStamp" column="TimeStamp"/>
-        <result property="ID" column="ID"/>
-        <result property="NO_act" column="NO_act"/>
-        <result property="NO_ref" column="NO_ref"/>
-        <result property="NO2_act" column="NO2_act"/>
-        <result property="NO2_ref" column="NO2_ref"/>
-        <result property="CO_act" column="CO_act"/>
-        <result property="CO_ref" column="CO_ref"/>
-        <result property="CO2" column="CO2"/>
-        <result property="Oz_act" column="Oz_act"/>
-        <result property="Oz_ref" column="Oz_ref"/>
-        <result property="SO2_act" column="SO2_act"/>
-        <result property="SO2_ref" column="SO2_ref"/>
-        <result property="VOC1" column="VOC1"/>
-        <result property="VOC2" column="VOC2"/>
+        <result property="NO_ppb" column="NO_ppb"/>
+        <result property="NO_diff_mV" column="NO_diff_mV"/>
+        <result property="NO2_ppb" column="NO2_ppb"/>
+        <result property="NO2_diff_mV" column="NO2_diff_mV"/>
+        <result property="CO_ppm" column="CO_ppm"/>
+        <result property="CO_diff_mV" column="CO_diff_mV"/>
+        <result property="CO2_ppm" column="CO2_ppm"/>
+        <result property="CO2_mV" column="CO2_mV"/>
+        <result property="PM1_ug" column="PM1_ug"/>
+        <result property="PM25_ug" column="PM2.5_ug"/>
+        <result property="PM10_ug" column="PM10_ug"/>
         <result property="Temp" column="Temp"/>
         <result property="Humi" column="Humi"/>
-        <result property="PM1" column="PM1"/>
-        <result property="PM25" column="PM25"/>
-        <result property="PM10" column="PM10"/>
-        <result property="SFR" column="SFR"/>
-        <result property="Bat_vol" column="Bat_vol"/>
-        <result property="light" column="light"/>
-        <result property="Pressure" column="Pressure"/>
-        <result property="Bin0" column="Bin0"/>
-        <result property="Bin1" column="Bin1"/>
-        <result property="Bin2" column="Bin2"/>
-        <result property="Bin3" column="Bin3"/>
-        <result property="Bin4" column="Bin4"/>
-        <result property="Bin5" column="Bin5"/>
-        <result property="Bin6" column="Bin6"/>
-        <result property="Bin7" column="Bin7"/>
-        <result property="Bin8" column="Bin8"/>
-        <result property="Bin9" column="Bin9"/>
-        <result property="Bin10" column="Bin10"/>
-        <result property="Bin11" column="Bin11"/>
-        <result property="Bin12" column="Bin12"/>
-        <result property="Bin13" column="Bin13"/>
-        <result property="Bin14" column="Bin14"/>
-        <result property="Bin15" column="Bin15"/>
-        <result property="Checksum" column="Checksum"/>
     </resultMap>
     
 	<select id="findDeviceList" resultMap="DeviceResult" parameterType="Map" statementType="STATEMENT">
@@ -55,15 +28,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        	</if>
 	</select>
 	
+    <!-- <choose>
+       <when test="airquality_act!=null||airquality_ref!=null">
+            SELECT DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i')AS `TimeStamp`,`${airquality_act}`,`${airquality_ref}` FROM ${deviceName} GROUP BY DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i') ORDER BY DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i') DESC LIMIT 0,10
+       </when> -->
 	<select id="getChartsData" resultMap="DeviceResult" parameterType="Map" statementType="STATEMENT">
-	     <choose>
-         <when test="airquality_act!=null||airquality_ref!=null">
-              SELECT DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i')AS `TimeStamp`,${airquality_act},${airquality_ref} FROM ${deviceName} GROUP BY DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i') ORDER BY DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i')
-         </when>
-         <otherwise>
-			SELECT DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i')AS `TimeStamp`,${airquality} FROM ${deviceName} GROUP BY DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i') ORDER BY DATE_FORMAT(`TimeStamp`,'%m月%d日 %H:%i')
-          </otherwise>
-         </choose>
+	    SELECT `TimeStamp`,`${airquality}` FROM ${deviceName}
 	</select>
 	
 	<select id="getDeviceCount" parameterType="Map" resultType="Integer"  statementType="STATEMENT">

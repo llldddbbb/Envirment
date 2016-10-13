@@ -47,16 +47,16 @@ if(session.getAttribute("currentAccount")==null){
 	<div class="detail-main">
 		<div class="detail-left">
 			<h1 class="detail-place">${cityName }</h1>
-			<h1>${device.getTimeStamp() }</h1>
+			<h1><fmt:formatDate value="${device.getTimeStamp()}" type="Date" pattern="yyyy-MM-dd HH:mm:ss"/></h1>
 			<h2>PM2.5(ug/m^3)</h2>
 			<table class="detail-data">
 				<tr>					
-					<th colspan="2" class="detail-PM"><fmt:formatNumber type="number" value="${device.PM25 }" pattern="0.00" maxFractionDigits="2"/></th>
+					<th colspan="2" class="detail-PM"><fmt:formatNumber type="number" value="${device.PM25_ug }" pattern="0.00" maxFractionDigits="2"/></th>
 				</tr>
 				<tr>
 					<td>CO2浓度</td>
 					<td class="detail-level-1">优</td>
-					<td><fmt:formatNumber type="number" value="${device.CO2 }" pattern="0.00" maxFractionDigits="2"/></td>
+					<td><fmt:formatNumber type="number" value="${device.CO2_ppm }" pattern="0.00" maxFractionDigits="2"/></td>
 				</tr>
 				<tr>
 					<td>湿度</td>
@@ -74,11 +74,11 @@ if(session.getAttribute("currentAccount")==null){
 		<div class="detail-right">
 			<h2>图表---${cityName }</h2>
 			<select name="airquality" id="airquality">
-				<option value="PM25">PM2.5</option>
-				<option value="CO2">CO2浓度</option>
-				<option value="CO">CO浓度</option>
-				<option value="NO">NO浓度</option>
-				<option value="NO2">NO2浓度</option>
+				<option value="PM25_ug">PM2.5</option>
+				<option value="CO2_ppm">CO2浓度</option>
+				<option value="CO_ppm">CO浓度</option>
+				<option value="NO_ppb">NO浓度</option>
+				<option value="NO2_ppb">NO2浓度</option>
 				<option value="Temp">温度</option>
 				<option value="Humi">湿度</option>
 			</select>
@@ -113,7 +113,7 @@ if(session.getAttribute("currentAccount")==null){
             yAxis: {},
             series: [
             {
-                name: 'PM25',
+                name: 'PM25_ug',
                 type: 'line',
                 data: [],
                 itemStyle : {  
@@ -125,7 +125,7 @@ if(session.getAttribute("currentAccount")==null){
                     }  
                 }
             }, {
-                name: 'CO2',
+                name: 'CO2_ppm',
                 type: 'line',
                 data: [],
                 itemStyle : {  
@@ -161,7 +161,7 @@ if(session.getAttribute("currentAccount")==null){
                     }  
                 }
             }, {
-                name: 'CO_act',
+                name: 'CO_ppm',
                 type: 'line',
                 data: [],
                 itemStyle : {  
@@ -173,7 +173,7 @@ if(session.getAttribute("currentAccount")==null){
                     }  
                 }
             }, {
-                name: 'NO_act',
+                name: 'NO_ppb',
                 type: 'line',
                 data: [],
                 itemStyle : {  
@@ -185,7 +185,7 @@ if(session.getAttribute("currentAccount")==null){
                     }  
                 }
             }, {
-                name: 'NO2_act',
+                name: 'NO2_ppb',
                 type: 'line',
                 data: [],
                 itemStyle : {  
@@ -197,7 +197,7 @@ if(session.getAttribute("currentAccount")==null){
                     }  
                 }
             }
-            ,{
+            /* ,{
             	name: 'CO_ref',
                 type: 'line',
                 data: [],
@@ -234,7 +234,7 @@ if(session.getAttribute("currentAccount")==null){
                         }  
                     }  
                 }
-            }
+            } */
             ]
         };
 		//生成图表
@@ -254,7 +254,7 @@ if(session.getAttribute("currentAccount")==null){
                    myChart.hideLoading();
                    myChart.setOption({
                 	   title: {
-                           text: 'PM25'
+                           text: 'PM25_ug'
                        },
                        yAxis: {
                        	name: '单位(ug/m^3)'
@@ -265,13 +265,13 @@ if(session.getAttribute("currentAccount")==null){
                            }
                        },
 	               	    legend: {
-	               	        data:['PM25']
+	               	        data:['PM25_ug']
 	               	    },
                        xAxis: {
                            data: names
                        },
                        series: [{
-                           name: 'PM25',
+                           name: 'PM25_ug',
                            data: nums
                        }]
                    });
@@ -290,9 +290,9 @@ function getChartsData(){
     var chartstype=$("#chartstype").val();
 	var airquality=$("#airquality").val();
 	var unit;
-	if(airquality=="PM25"){
+	if(airquality=="PM25_ug"){
 		unit="ug/m^3";
-	}else if(airquality=='CO'||airquality=='NO'||airquality=='NO2'||airquality=='CO2'){
+	}else if(airquality=='CO_ppm'||airquality=='NO_ppb'||airquality=='NO2_ppb'||airquality=='CO2_ppm'){
 		unit="V";
 	}else if(airquality=="Temp"){
 		unit="°C";
@@ -306,7 +306,7 @@ function getChartsData(){
 		     var names=[];   
 		     var nums=[];   
 		     var nums_ref=[];
-		     if(airquality=='CO'||airquality=='NO'||airquality=='NO2'){
+		    /*  if(airquality=='CO'||airquality=='NO'||airquality=='NO2'){
 		    	 $(result).each(function(i) {
 		    		 var json = result[i];
 			    	 for(j in json){
@@ -363,8 +363,8 @@ function getChartsData(){
                          },
                     	 data:nums_ref
                      }]
-                  },false);
-		     }else{
+                  },false); */
+		     
 		    	 for(i in result){
 	           		   names.push(i);
 	           		   nums.push(result[i]);
@@ -398,7 +398,6 @@ function getChartsData(){
                         data: nums
                    }]
                 });
-		     }
 			 
 		}else{
 			alert("图表请求数据失败!");

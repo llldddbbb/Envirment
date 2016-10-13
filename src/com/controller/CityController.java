@@ -48,7 +48,7 @@ public class CityController {
 		List<City> cityList=cityService.findCityList(map);//从数据库取出符合条件的城市列表
 		for(City c:cityList){//遍历城市，将每个城市下的device取出存入相应城市
 			Map<String,Object> map2=new HashMap<String,Object>();
-			map2.put("deviceName",c.getDeviceName());
+			map2.put("deviceName",c.getDeviceInfo().getDeviceName()+"_1h");
 			map2.put("start", 0);
 			map2.put("pageSize", 1);
 			c.setDeviceList(deviceService.findDeviceList(map2));
@@ -102,19 +102,19 @@ public class CityController {
 			jsonObject.put("geo", geo);
 			//拼接每个城市的dev信息
 			Map<String,Object> map2=new HashMap<String,Object>();
-			map2.put("deviceName",c.getDeviceName());
+			map2.put("deviceName",c.getDeviceInfo().getDeviceName()+"_1h");
 			map2.put("start", 0);
 			map2.put("pageSize", 1);
 			Device device=deviceService.findDeviceList(map2).get(0);
 			jsonObject.put("name", c.getCityName());
-			jsonObject.put("PM25", Float.parseFloat(device.getPM25()));
-			jsonObject.put("CO", Float.parseFloat(device.getCO_act()));
-			jsonObject.put("CO2", Float.parseFloat(device.getCO2()));
-			jsonObject.put("NO", Float.parseFloat(device.getNO_act()));
-			jsonObject.put("NO2", Float.parseFloat(device.getNO2_act()));
-			jsonObject.put("Temp", Float.parseFloat(device.getTemp()));
-			jsonObject.put("Humi", Float.parseFloat(device.getHumi()));
-			jsonObject.put("deviceName", c.getDeviceName());
+			jsonObject.put("PM25", device.getPM25_ug());
+			jsonObject.put("CO2", device.getCO2_ppm());
+			jsonObject.put("CO", device.getCO_ppm());
+			jsonObject.put("NO", device.getNO_ppb());
+			jsonObject.put("NO2", device.getNO2_ppb());
+			jsonObject.put("Temp", device.getTemp());
+			jsonObject.put("Humi", device.getHumi());
+			jsonObject.put("deviceName", c.getDeviceInfo().getDeviceName());
 			result.add(jsonObject);
 		}
 		//将城市经纬度信息和相应城市的device拼接成JSON数组，并写出到界面

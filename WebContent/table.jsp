@@ -71,12 +71,12 @@ if(session.getAttribute("currentAccount")==null){
 			</tr>
 			<c:forEach var="device" items="${deviceList }">
 				<tr>
-					<td>${device.getTimeStamp()}</td>
-					<td>${device.PM25 }</td>
-					<td>${device.CO_act }</td>
-					<td>${device.CO2 }</td>
-					<td>${device.NO_act }</td>
-					<td>${device.NO2_act }</td>
+					<td><fmt:formatDate value="${device.getTimeStamp()}" type="Date" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td>${device.PM25_ug }</td>
+					<td>${device.CO_ppm }</td>
+					<td>${device.CO2_ppm }</td>
+					<td>${device.NO_ppb }</td>
+					<td>${device.NO2_ppb }</td>
 					<td>${device.getTemp() }</td>
 					<td>${device.getHumi() }</td>
 				</tr>	

@@ -6,13 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.dao.CityDao">
     <resultMap id="CityResult" type="City">
         <result property="cityID" column="cityID"/>
-        <result property="deviceName" column="deviceName"/>
         <result property="cityName" column="cityName"/>
         <result property="lat" column="lat"/>
         <result property="lng" column="lng"/>
         <result property="AQI_lat" column="AQI_lat"/>
         <result property="AQI_lng" column="AQI_lng"/>
         <result property="distance" column="distance"/>
+        <association property="deviceInfo" column="device_Item" select="com.dao.DeviceInfoDao.getDeviceInfoById"></association>
     </resultMap>
     
 	<select id="findCityList" resultMap="CityResult" parameterType="Map">

@@ -182,21 +182,21 @@ if(session.getAttribute("currentAccount")==null){
 				<div class="citylist">
 				<c:forEach var="city" items="${cityList }">
 					<div class="cities">
-						<a href="${pageContext.request.contextPath }/device/detail.do?deviceName=${city.deviceName}&cityName=${city.cityName}">
+						<a href="${pageContext.request.contextPath }/device/detail.do?deviceName=${city.deviceInfo.deviceName}_1h&cityName=${city.cityName}">
 						<img src="img/img1.JPG" alt=""/>
 							<h3>${city.cityName }</h3>
 							<div class="city-bottom">
 							<c:forEach var="device" items="${city.deviceList }">
 								<span>PM2.5 :</span>
-								<span id="pm25">${device.PM25 }</span>
+								<span id="pm25">${device.getPM25_ug() }</span>
 								<span> / </span>
 								<span>CO2 :</span>
-								<span id="co2">${device.CO2 }</span>
+								<span id="co2">${device.CO2_ppm }</span>
 								<c:choose>
-									<c:when test="${device.PM25<20.00000 }">
+									<c:when test="${device.PM25_ug<20.00000 }">
 										<p class="airlevel level-1">优</p>
 									</c:when>
-									<c:when test="${device.PM25>25.00000 }">
+									<c:when test="${device.PM25_ug>25.00000 }">
 										<p class="airlevel level-3">差</p>
 									</c:when>
 									<c:otherwise>

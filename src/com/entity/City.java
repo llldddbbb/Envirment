@@ -5,13 +5,13 @@ import java.util.List;
 public class City {
 	
 	private int cityID;
-	private String deviceName;
 	private String cityName;
 	private String lat;
 	private String lng;
 	private String AQI_lat;
 	private String AQI_lng;
 	private float distance;
+	private DeviceInfo deviceInfo;
 	
 	private List<Device> deviceList;
 	
@@ -57,17 +57,18 @@ public class City {
 	public void setDeviceList(List<Device> deviceList) {
 		this.deviceList = deviceList;
 	}
-	public String getDeviceName() {
-		return deviceName;
-	}
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
-	}
+	
 	public String getCityName() {
 		return cityName;
 	}
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
+	}
+	public DeviceInfo getDeviceInfo() {
+		return deviceInfo;
+	}
+	public void setDeviceInfo(DeviceInfo deviceInfo) {
+		this.deviceInfo = deviceInfo;
 	}
 	
 	

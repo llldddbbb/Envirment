@@ -34,7 +34,6 @@ if(session.getAttribute("currentAccount")==null){
 			<a class="logo" href="${pageContext.request.contextPath}/city/list.do?cityID=${currentAccount.place}">CAM-Campus Air Qulity Measure</a>
 			<a class="header-btn" href="map.jsp">地图</a>
 			<a class="header-btn" href="${pageContext.request.contextPath}/city/list.do?cityID=${currentAccount.place}">列表</a>			
-			<a class="header-btn" href="table.jsp">数据</a>
 			<a class="header-btn" href="${pageContext.request.contextPath}/account/logout.do">注销</a>
 		</div>
 	</div>
@@ -94,7 +93,7 @@ if(session.getAttribute("currentAccount")==null){
 					map.openInfoWindow(infoWindow,point); //开启信息窗口
 					});
 				    marker.addEventListener("click",function(e){
-				    	window.location.href='${pageContext.request.contextPath}/device/findDeviceList.do?deviceName='+val.deviceName; 
+				    	window.location.href='${pageContext.request.contextPath}/device/findDeviceList.do?deviceName='+val.deviceName+"_1h"; 
 				    });
 				});
 			}else{
